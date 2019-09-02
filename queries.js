@@ -8,8 +8,8 @@ const pool = new Pool({
 })
 
 
-const getUsers = (request, response) => {
-    pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+const getPlayers = (request, response) => {
+    pool.query('SELECT * FROM player ORDER BY Id ASC', (error, results) => {
         if (error) {
             throw error
         }
@@ -18,10 +18,10 @@ const getUsers = (request, response) => {
 }
 
 
-const getUserById = (request, response) => {
+const getPlayerById = (request, response) => {
     const id = parseInt(request.params.id)
   
-    pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM player WHERE id = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
@@ -29,49 +29,50 @@ const getUserById = (request, response) => {
     })
   }
 
-const createUser = (request, response) => {
-    const { name, email } = request.body
+const createPlayer = (request, response) => {
+    const { name, email, pic, password, nick, wins } = request.body
 
-    pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
+    pool.query('INSERT INTO player (name, email, pic, password, nick, wins) VALUES ($1, $2, $3, $4, $5, $6)', 
+    [name,email,pic,password,nick,wins], (error, results) => {
         if (error) {
-        throw error
+          throw error
         }
-        response.status(201).send(`User added with ID: ${result.insertId}`)
+        response.status(201).send(`Player added with ID: ${result.insertId}`)
     })
 }
 
-const updateUser = (request, response) => {
+const updatePlayer = (request, response) => {
     const id = parseInt(request.params.id)
-    const { name, email } = request.body
+    const { name, email, pic, password, nick, wins } = request.body
 
     pool.query(
-    'UPDATE users SET name = $1, email = $2 WHERE id = $3',
-    [name, email, id],
+    'UPDATE player SET name = $1, email = $2, pic=$3, password=$4, nick=$5, wins=$6 WHERE Id = $',
+    [name, email, pic, password, nick, wins, id],
     (error, results) => {
         if (error) {
-        throw error
+          throw error
         }
-        response.status(200).send(`User mod1d with ID: ${id}`)
+        response.status(200).send(`Player updated with ID: ${id}`)
     }
     )
 }
 
-const deleteUser = (request, response) => {1
+const deletePlayer = (request, response) => {
     const id = parseInt(request.params.id)
   
-    pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM player WHERE Id = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`User deleted with ID: ${id}`)
+      response.status(200).send(`Player deleted with ID: ${id}`)
     })
   }
 
 
 module.exports = {
-    getUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser,
+    getPlayers,
+    getPlayerById,
+    createPlayer,
+    updatePlayer,
+    deletePlayer,
 }

@@ -1,0 +1,25 @@
+{
+  "name": "App-Ranking-PGP-BackEnd",
+  "version": "1.0.0",
+  "description": "Repositorio Backend Projeto Ranking",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaNegrao/App-Ranking-PGP-BackEnd.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaNegrao/App-Ranking-PGP-BackEnd/issues"
+  },
+  "homepage": "https://github.com/MaNegrao/App-Ranking-PGP-BackEnd#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.12.1"
+  }
+}

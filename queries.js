@@ -21,8 +21,8 @@ const getPlayers = (request, response) => {
 
 const getPlayerByNickname = (request, response) => {
     const nick = request.params.nickname
-    const password = request.body.password 
-  
+    const password = request.body.password
+
     pool.query('SELECT * FROM player WHERE nick = $1 AND password = $2', [nick, password], (error, results) => {
       if (error) {
         throw error
@@ -36,7 +36,7 @@ const getPlayerByNickname = (request, response) => {
 const createPlayer = (request, response) => {
     const { name, email, pic, password, nick, wins } = request.body
 
-    pool.query('INSERT INTO player (name, email, pic, password, nick, wins) VALUES ($1, $2, $3, $4, $5, $6)', 
+    pool.query('INSERT INTO player (name, email, pic, password, nick, wins) VALUES ($1, $2, $3, $4, $5, $6)',
     [name,email,pic,password,nick,wins], (error, results) => {
         if (error) {
           throw error
@@ -50,7 +50,7 @@ const updatePlayer = (request, response) => {
     const { name, email, pic, password, nick, wins } = request.body
 
     pool.query(
-    'UPDATE player SET name = $1, email = $2, pic=$3, password=$4, nick=$5, wins=$6 WHERE Id = $',
+    'UPDATE player SET name = $1, email = $2, pic=$3, password=$4, nick=$5, wins=$6 WHERE Id = $7',
     [name, email, pic, password, nick, wins, id],
     (error, results) => {
         if (error) {
@@ -63,7 +63,7 @@ const updatePlayer = (request, response) => {
 
 const deletePlayer = (request, response) => {
     const id = parseInt(request.params.id)
-  
+
     pool.query('DELETE FROM player WHERE Id = $1', [id], (error, results) => {
       if (error) {
         throw error

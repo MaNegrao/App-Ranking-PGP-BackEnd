@@ -12,14 +12,14 @@ app.use(
 )
 
 app.get('/', (request, response) => {
-    response.json({ info: 'Node.js, Express, and Postgres API' })
+    response.json({ info: 'Node.js, Express, and Postgres Truco UFFS API' })
 })
 
-app.get('/users', db.getPlayers)
-app.get('/users/:id', db.getPlayerById)
-app.post('/users', db.createPlayer)
-app.put('/users/:id', db.updatePlayer)
-app.delete('/users/:id', db.deletePlayer)
+app.get('/players', db.getPlayers)
+app.get('/players/:id', db.getPlayerById)
+app.post('/players', db.createPlayer)
+app.put('/players/:id', db.updatePlayer)
+app.delete('/players/:id', db.deletePlayer)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

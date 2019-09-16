@@ -16,7 +16,7 @@ app.get('/', (request, response) => {
 })
 
 app.get('/players', db.getPlayers)
-app.get('/players/:id', db.getPlayerById)
+app.get('/players/:nickname', db.getPlayerByNickname)
 app.post('/players', db.createPlayer)
 app.put('/players/:id', db.updatePlayer)
 app.delete('/players/:id', db.deletePlayer)

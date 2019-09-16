@@ -19,14 +19,17 @@ const getPlayers = (request, response) => {
 }
 
 
-const getPlayerById = (request, response) => {
-    const id = parseInt(request.params.id)
+const getPlayerByNickname = (request, response) => {
+    const nick = request.params.nickname
+    const password = request.body.password 
   
-    pool.query('SELECT * FROM player WHERE id = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM player WHERE nick = $1 AND password = $2', [nick, password], (error, results) => {
       if (error) {
         throw error
-      }
-      response.status(200).json(results.rows)
+      }else if (results.rowCount) {
+        response.status(200).json(results.rows)
+      }else
+        response.status(404).json("usuário não encontrado")
     })
   }
 
@@ -38,7 +41,7 @@ const createPlayer = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(201).send(`Player added with ID: ${result.insertId}`)
+        response.status(201).send(`Player added with ID: ${results.insertId}`)
     })
 }
 
@@ -72,7 +75,7 @@ const deletePlayer = (request, response) => {
 
 module.exports = {
     getPlayers,
-    getPlayerById,
+    getPlayerByNickname,
     createPlayer,
     updatePlayer,
     deletePlayer,

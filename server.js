@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
-const { Player }  = require('./src/models')
 
+//pra funcionar a conexão com o bd ativar ssl
 var pg = require('pg');
 pg.defaults.ssl = true;
 
@@ -18,17 +18,8 @@ app.get('/', (request, response) => {
 })
 
 // quaquer rota que inicie com /api, é redirecionada p/ routes
-// app.use('/api', require('./src/routes'))
+app.use('/api', require('./src/routes'))
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
 })
-
-Player.create({
-  name: 'vitor',
-  email: 'vitorhj#hojemail;cao',
-  pic: 'kkkkkkkkkkkk',
-  password: 'XDXD',
-  nick: 'ze torinho',
-  wins: 365,
-});

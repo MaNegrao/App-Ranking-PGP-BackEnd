@@ -1,78 +1,55 @@
-const Player = require('../models/Player')
+const { Player }  = require('../models')
 
 module.exports = {
-    async index(){
-        
+  async index(req, res){
+    const players = await Player.findAll();
+
+    return res.json(players);
+  },
+
+  async create(req, res){
+    if(req.body){
+      const player = await Player.create(req.body);
+
+      return res.json(player);
     }
+    //tratar erro
+  },
 
-}
+  async read(req, res){
+    const nick = req.params.nick;
+    if(nick){
+      const player = await Player.findOne({ where: {nick} });
 
-const getPlayers = (request, response) => {
-    pool.query('SELECT * FROM player ORDER BY Id ASC', (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).json(results.rows)
-    })
-}
-
-const getPlayerByNickname = (request, response) => {
-    const nick = request.params.nickname
-    const password = request.body.password
-
-    pool.query('SELECT * FROM player WHERE nick = $1 AND password = $2', [nick, password], (error, results) => {
-      if (error) {
-        throw error
-      }else if (results.rowCount) {
-        response.status(200).json(results.rows)
-      }else
-        response.status(404).json("usuário não encontrado")
-    })
-  }
-
-const createPlayer = (request, response) => {
-    const { name, email, pic, password, nick, wins } = request.body
-
-    pool.query('INSERT INTO player (name, email, pic, password, nick, wins) VALUES ($1, $2, $3, $4, $5, $6)',
-    [name,email,pic,password,nick,wins], (error, results) => {
-        if (error) {
-          throw error
-        }
-        response.status(201).send(`Player added with ID: ${results.insertId}`)
-    })
-}
-
-const updatePlayer = (request, response) => {
-    const id = parseInt(request.params.id)
-    const { name, email, pic, password, nick, wins } = request.body
-
-    pool.query(
-    'UPDATE player SET name = $1, email = $2, pic=$3, password=$4, nick=$5, wins=$6 WHERE Id = $7',
-    [name, email, pic, password, nick, wins, id],
-    (error, results) => {
-        if (error) {
-          throw error
-        }
-        response.status(200).send(`Player updated with ID: ${id}`)
+      return res.json(player);
     }
-    )
-}
+    //tratar erro
+  },
 
-const deletePlayer = (request, response) => {
-    const id = parseInt(request.params.id)
+  async update(req, res){
+    const nick = req.params.nick;
+    const { name, email, pic, password, wins } = req.body;
 
-    pool.query('DELETE FROM player WHERE Id = $1', [id], (error, results) => {
-      if (error) {
-        throw error
-      }
-      response.status(200).send(`Player deleted with ID: ${id}`)
+
+    const player = await Player.findOne({ where: { nick } });
+
+    player.update({ 
+      name, 
+      email, 
+      pic, 
+      password, 
+      wins
     })
-  }
+    
+    res.json(player);
+      //tratar erro
+  },
 
-module.exports = {
-    getPlayers,
-    getPlayerByNickname,
-    createPlayer,
-    updatePlayer,
-    deletePlayer,
+  async delete(req, res){
+    const id = parseInt(req.params.id); 
+
+    await Player.destroy({ where: {id} });
+
+    res.send(200)
+  }
 }

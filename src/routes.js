@@ -3,6 +3,7 @@ const routes = express.Router();
 
 const PlayerController = require('./controllers/PlayerController');
 const TeamController = require('./controllers/TeamController');
+const MatchController = require('./controllers/MatchController');
 
 // crud player
 routes.get('/players', PlayerController.index)
@@ -27,9 +28,11 @@ routes.delete('/plays/:id', TeamController.delete)
 
 // crud matches
 routes.get('/matches', MatchController.index)
+/*
 routes.post('/matches', MatchController.create)
 routes.get('/matches/:id', MatchController.read)
 routes.put('/matches/:id', MatchController.update)
 routes.delete('/matches/:id', MatchController.delete)
+*/
 
 module.exports = routes;

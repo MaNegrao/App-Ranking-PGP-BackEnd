@@ -18,10 +18,9 @@ module.exports = (sequelize, DataTypes) => {
 }
 
 /*
-CREATE TABLE public."match" (
-	"date" date NULL,
-	status bpchar(1) NULL,
-	id serial NOT NULL,
-	CONSTRAINT match_pkey PRIMARY KEY (id)
+CREATE TABLE match (
+    date DATE NOT NULL,
+    status CHAR NOT NULL,
+    id SERIAL PRIMARY KEY
 );
 */

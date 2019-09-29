@@ -46,9 +46,9 @@ module.exports = {
   },
 
   async delete(req, res){
-    const id = parseInt(req.params.id); 
+    const nick = req.params.nick; 
 
-    await Player.destroy({ where: {id} });
+    await Player.destroy({ where: { nick } });
 
     res.send(200)
   }

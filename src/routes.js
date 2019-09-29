@@ -10,7 +10,7 @@ routes.get('/players', PlayerController.index)
 routes.post('/players', PlayerController.create)
 routes.get('/players/:nick', PlayerController.read)
 routes.put('/players/:nick', PlayerController.update)
-routes.delete('/players/:id', PlayerController.delete)
+routes.delete('/players/:nick', PlayerController.delete)
 
 // crud team
 routes.get('/teams', TeamController.index)

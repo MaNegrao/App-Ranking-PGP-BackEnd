@@ -1,4 +1,4 @@
-const { Player }  = require('../models')
+const { Player, Sequelize }  = require('../models')
 
 module.exports = {
   async index(req, res){
@@ -8,10 +8,31 @@ module.exports = {
   },
 
   async create(req, res){
-    if(req.body){
+    const player = req.body;
+    const { email, nick } = player;
+    const erros = []
+
+    if(player){
+      const p1 = await Player.findOne({ where: { email } });
+      const p2 = await Player.findOne({ where: { nick } });
+
+      if(p1 !== null){
+        erros.push('Email já existe');
+      }
+      
+      if(p2 !== null){
+        erros.push('Nick já existe');
+      }
+      
+      if(erros.length){
+        return res.status(500).json(erros);
+      }
+    }
+
+    if(player){
       const player = await Player.create(req.body);
 
-      return res.json(player);
+      return res.status(201).json(player);
     }
     //tratar erro
   },

@@ -1,13 +1,19 @@
 const express = require('express');
+const authMiddleware = require("./middlewares/auth");
 const routes = express.Router();
 
 const PlayerController = require('./controllers/PlayerController');
 const TeamController = require('./controllers/TeamController');
 const MatchController = require('./controllers/MatchController');
 
+routes.post('/authenticate', PlayerController.authenticate)
+routes.post('/players', PlayerController.create)
+
+// intercepta as requisições apartir daqui
+routes.use(authMiddleware);
+
 // crud player
 routes.get('/players', PlayerController.index)
-routes.post('/players', PlayerController.create)
 routes.get('/players/:nick', PlayerController.read)
 routes.put('/players/:nick', PlayerController.update)
 routes.delete('/players/:nick', PlayerController.delete)

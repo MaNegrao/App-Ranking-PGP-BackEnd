@@ -17,8 +17,6 @@ module.exports = async (req, res, next) => {
 
     req.userId = decoded.id;
 
-    console.log(decoded.id);
-
     return next();
   } catch (err) {
     return res.status(401).send({ error: "Token invalid" });

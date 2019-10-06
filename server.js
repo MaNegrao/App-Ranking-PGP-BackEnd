@@ -1,7 +1,5 @@
-const express = require('express')
-const cors = require('cors')
-
-const { Match } = require('./src/models');
+const express = require('express');
+const cors = require('cors');
 
 const app = express()
 var port = process.env.PORT || 8080;
@@ -19,8 +17,3 @@ app.use('/api', require('./src/routes'))
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
 })
-
-Match.create({
-    date: new Date,
-    status: 'playing'
-});

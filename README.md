@@ -32,7 +32,7 @@ Com os passos anteriores sido executados, execute o seguinte comando
  ```sh
 $ npx sequelize-cli db:seed:all
 ```
-Seeds são scripts de inserção executados para inserir alguns dados de exemplo no banco, você pode conferi-las em /database/seeders
+Seeds são scripts de inserção executados para inserir alguns dados de exemplo no banco, você pode conferi-las em /database/seeder
 
 **6. Executando a api (dev)**
 Na pasta raíz do projeto, execute o comando:

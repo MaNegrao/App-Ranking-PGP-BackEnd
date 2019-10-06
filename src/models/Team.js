@@ -1,27 +1,23 @@
+'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Team = sequelize.define('Team', {
-        id: {
-            type: DataTypes.INTEGER,
-            required: true,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        score: DataTypes.INTEGER,
-        win: DataTypes.INTEGER,
-    }, {
-        timestamps: false,
-        freezeTableName: true,
-        tableName: 'team'
-    });
-
-    return Team;
-}
-
-/*
-CREATE TABLE team (
-    score INTEGER,
-    id SERIAL PRIMARY KEY,
-    win INTEGER,
-    fk_match_id INTEGER
-);
-*/
+  const Team = sequelize.define('Team', {
+    score: DataTypes.INTEGER,
+    win: DataTypes.INTEGER,
+    match_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Match',
+        key: 'id'
+      }
+    },  
+  }, {
+    timestamps: false,
+    freezeTableName: true,
+    tableName: 'team'
+  });
+  Team.associate = function(models) {
+    Team.belongsToMany(models.Player, {as: {singular:'player', plural:'players'}, through: 'player_team', foreignKey: 'id_team'});
+    Team.belongsTo(models.Match, {foreignKey: 'match_id', targetKey: 'id'})
+  };
+  return Team;
+};

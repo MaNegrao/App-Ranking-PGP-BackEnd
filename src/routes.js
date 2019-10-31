@@ -1,5 +1,7 @@
 const express = require('express');
-const authMiddleware = require("./middlewares/auth");
+
+const authMiddleware = require('./middlewares/auth');
+
 const routes = express.Router();
 
 const PlayerController = require('./controllers/PlayerController');
@@ -9,8 +11,8 @@ const TeamController = require('./controllers/TeamController');
 cost MatchController = require('./controllers/MatchController');
 */
 
-routes.post('/players', PlayerController.create)
-routes.post('/authenticate', SessionController.authenticate)
+routes.post('/players', PlayerController.create);
+routes.post('/authenticate', SessionController.authenticate);
 
 // intercepta as requisições apartir daqui
 routes.use(authMiddleware);

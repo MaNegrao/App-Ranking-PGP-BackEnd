@@ -12,7 +12,7 @@ app.get('/', (request, response) => {
 })
 
 // quaquer rota que inicie com /api, é redirecionada p/ routes
-app.use('/api', require('./src/routes'))
+app.use('/api', require('./routes'))
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)

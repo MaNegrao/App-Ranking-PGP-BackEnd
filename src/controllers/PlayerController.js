@@ -1,76 +1,83 @@
-const { Player }  = require('../models');
+const { Player } = require('../models');
 
 module.exports = {
-  async index(req, res){
+  async index(req, res) {
     const players = await Player.findAll();
 
     return res.json(players);
   },
 
-  async create(req, res){
+  async create(req, res) {
     const player = req.body;
     const { email, nick } = player;
-    const erros = []
+    const erros = [];
 
-    if(player){
+    if (player) {
       const p1 = await Player.findOne({ where: { email } });
       const p2 = await Player.findOne({ where: { nick } });
 
-      if(p1 !== null){
+      if (p1 !== null) {
         erros.push('Email já existe');
       }
-      
-      if(p2 !== null){
+
+      if (p2 !== null) {
         erros.push('Nick já existe');
       }
-      
-      if(erros.length){
+
+      if (erros.length) {
         return res.status(500).json(erros);
       }
     }
 
-    if(player){
-      const player = await Player.create(req.body);
+    if (player) {
+      const retPlayer = await Player.create(req.body);
 
-      return res.status(201).json(player);
+      return res.status(201).json(retPlayer);
     }
-    //tratar erro
+    // need put error here
+    return null;
   },
 
-  async read(req, res){
-    const nick = req.params.nick;
-    if(nick){
-      const player = await Player.findOne({ where: {nick} });
+  async read(req, res) {
+    const { nick } = req.params;
+    if (nick) {
+      const player = await Player.findOne({ where: { nick } });
 
       return res.json(player);
     }
-    //tratar erro
+    // need put error here
+    return null;
   },
 
-  async update(req, res){
-    const nick = req.params.nick;
-    const { name, email, pic, password, wins } = req.body;
+  async update(req, res) {
+    const { nick } = req.params;
+    const {
+      name,
+      email,
+      pic,
+      password,
+      wins,
+    } = req.body;
 
 
     const player = await Player.findOne({ where: { nick } });
 
-    player.update({ 
-      name, 
-      email, 
-      pic, 
-      password, 
-      wins
-    })
-    
+    player.update({
+      name,
+      email,
+      pic,
+      password,
+      wins,
+    });
+
     res.json(player);
-      //tratar erro
   },
 
-  async delete(req, res){
-    const nick = req.params.nick; 
+  async delete(req, res) {
+    const { nick } = req.params;
 
     await Player.destroy({ where: { nick } });
 
-    res.send(200)
-  }
-}
+    res.send(200);
+  },
+};

@@ -6,6 +6,7 @@ const routes = express.Router();
 
 const PlayerController = require('./controllers/PlayerController');
 const SessionController = require('./controllers/SessionController');
+const SearchController = require('./controllers/SearchController');
 /*
 const TeamController = require('./controllers/TeamController');
 cost MatchController = require('./controllers/MatchController');
@@ -16,6 +17,8 @@ routes.post('/authenticate', SessionController.authenticate);
 
 // intercepta as requisições apartir daqui
 routes.use(authMiddleware);
+
+routes.get('/search/:user_string', SearchController.search)
 
 /*
 routes.get('/players', PlayerController.index)

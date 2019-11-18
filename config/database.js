@@ -6,6 +6,9 @@ module.exports = {
     host: 'localhost',
     port: 5432,
     dialect: 'postgres',
+    define: {
+      timestamps: false,
+    },
   },
   production: {
     username: process.env.DB_USERNAME,

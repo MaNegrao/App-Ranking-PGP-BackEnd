@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'team'
   });
   Team.associate = function(models) {
-    Team.belongsToMany(models.Player, {as: {singular:'player', plural:'players'}, through: 'player_team', foreignKey: 'id_team'});
+    Team.belongsToMany(models.Player, {as: {singular:'player', plural:'players'}, through: 'player_team', foreignKey: 'team_id'});
     Team.belongsTo(models.Match, {foreignKey: 'match_id', targetKey: 'id'})
   };
   return Team;

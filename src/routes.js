@@ -19,9 +19,9 @@ routes.post('/authenticate', SessionController.authenticate);
 // intercepta as requisições apartir daqui
 routes.use(authMiddleware);
 
-routes.get('/search/:user_string', SearchController.search)
+routes.get('/search/:user_string', SearchController.search);
 
-routes.post('/endgame', GameController.storeResult)
+routes.post('/endgame', GameController.storeResult);
 
 /*
 routes.get('/players', PlayerController.index)
